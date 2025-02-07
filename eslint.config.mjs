@@ -68,6 +68,7 @@ const eslintConfig = [
         'warn',
         { callbacksLast: true, shorthandFirst: true },
       ],
+      'react/no-children-prop': 'off',
     },
   }),
 ];

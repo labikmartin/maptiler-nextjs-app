@@ -2,15 +2,20 @@
 
 import NextLink from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link, List, ListItem, TextField } from '@mui/material';
+import { Button, Link, List, ListItem, TextField } from '@mui/material';
+import { useDialogs } from '@toolpad/core';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
+
+import { CreateEntityDialog } from '@/features/entity';
 
 const schema = z.object({
   firstName: z.string().nonempty(),
 });
 
 export default function Home() {
+  const dialogs = useDialogs();
+
   const { control, formState, handleSubmit } = useForm({
     defaultValues: {
       firstName: 'test',
@@ -21,7 +26,7 @@ export default function Home() {
 
   const { errors } = formState;
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data: unknown) => console.log(data);
 
   return (
     <>
@@ -53,6 +58,10 @@ export default function Home() {
 
         <input type="submit" />
       </form>
+
+      <Button onClick={async () => await dialogs.open(CreateEntityDialog)}>
+        Create New Entity
+      </Button>
     </>
   );
 }

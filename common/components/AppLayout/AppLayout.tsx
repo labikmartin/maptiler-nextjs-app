@@ -15,7 +15,12 @@ export function AppLayout({ children }: PropsWithChildren) {
       }}
     >
       <Box sx={{ flexGrow: 1, padding: 3, paddingTop: 20 }}>
-        <AppBar color="transparent" position="fixed" variant="outlined">
+        <AppBar
+          color="transparent"
+          position="fixed"
+          sx={{ backdropFilter: 'blur(10px)' }}
+          variant="outlined"
+        >
           <Toolbar>
             <Container>
               <NextLink href="/">

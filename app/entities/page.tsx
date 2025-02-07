@@ -2,11 +2,13 @@
 
 import NextLink from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Link, List, ListItem, TextField } from '@mui/material';
+import { Button, List, ListItem, TextField } from '@mui/material';
 import { useDialogs } from '@toolpad/core';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { DeleteIconButton } from '@/common/components/DeleteIconButton/DeleteIconButton';
+import { ListCard } from '@/common/components/ListCard/ListCard';
 import { CreateEntityDialog } from '@/features/entity';
 
 const schema = z.object({
@@ -31,16 +33,20 @@ export default function Home() {
   return (
     <>
       <List>
-        <ListItem>
-          <Link component={NextLink} href="/entity/detail/1">
-            Entity 1
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link component={NextLink} href="/entity/detail/2">
-            Entity 2
-          </Link>
-        </ListItem>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <ListItem key={index} sx={{ paddingLeft: 0 }}>
+            <ListCard
+              actions={
+                <DeleteIconButton onClick={() => console.log('delete')} />
+              }
+              component={NextLink}
+              componentProps={{ href: `/entity/detail/${index}` }}
+              title="Entity 1"
+            >
+              Status A
+            </ListCard>
+          </ListItem>
+        ))}
       </List>
 
       <form onSubmit={handleSubmit(onSubmit)}>

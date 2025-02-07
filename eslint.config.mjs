@@ -55,6 +55,10 @@ const eslintConfig = [
           caseSensitive: false,
         },
       ],
+      'padding-line-between-statements': [
+        'warn',
+        { blankLine: 'always', prev: '*', next: 'return' },
+      ],
     },
   },
   ...compat.config({

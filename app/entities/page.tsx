@@ -1,39 +1,26 @@
 'use client';
 
 import NextLink from 'next/link';
-import { zodResolver } from '@hookform/resolvers/zod';
 import AddIcon from '@mui/icons-material/Add';
 import {
+  Alert,
   Box,
   Button,
+  CircularProgress,
   List,
   ListItem,
-  MenuItem,
   Stack,
-  TextField,
 } from '@mui/material';
 import { useDialogs } from '@toolpad/core';
-import { Controller, useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { DeleteIconButton } from '@/common/components/DeleteIconButton/DeleteIconButton';
 import { ListCard } from '@/common/components/ListCard/ListCard';
-import {
-  CreateEntityDialog,
-  StatusEnum,
-  statusSchema,
-  statusVariants,
-} from '@/features/entity';
+import { CreateEntityDialog, useGetEntitiesQuery } from '@/features/entity';
 
-const schema = z.object({
-  name: z.string().nonempty(),
-  status: statusSchema,
-});
-
-export default function Home() {
+export default function EntitiesPage() {
   const dialogs = useDialogs();
 
-  // const { data: dataEntities } = useGetEntitiesQuery();
+  const { data, loading } = useGetEntitiesQuery();
   // const { data: dataEntity } = useGetEntityQuery();
   // const [createEntity, { data: createEntityData }] = useCreateEntityMutation();
   // const [updateEntity, { data: updateEntityData }] = useUpdateEntityMutation();
@@ -45,25 +32,9 @@ export default function Home() {
   // console.log('updateEntityData: ', updateEntityData);
   // console.log('deleteEntityData: ', deleteEntityData);
 
-  const { control, formState, handleSubmit } = useForm({
-    defaultValues: {
-      name: '',
-      status: StatusEnum.NEW,
-    },
-    resolver: zodResolver(schema),
-    mode: 'onChange',
-  });
+  console.log(data);
 
-  const { errors } = formState;
-
-  const onSubmit = (data: unknown) => {
-    // createEntity({ variables: { name: 'test', status: 'NEW' } });
-    // updateEntity({
-    //   variables: { name: 'kjshadbhkjbdsh', status: 'DEPRECATED', id: '1' },
-    // });
-    // deleteEntity({ variables: { id: '1' } });
-    console.log(data);
-  };
+  const hasEntities = data && data.length > 0;
 
   return (
     <>
@@ -77,60 +48,34 @@ export default function Home() {
           Create New Entity
         </Button>
       </Box>
+      {loading && (
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <CircularProgress />
+        </Box>
+      )}
       <List>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <ListItem key={index} sx={{ paddingX: 0 }}>
+        {data?.map((entity) => (
+          <ListItem key={entity.id} sx={{ paddingX: 0 }}>
             <ListCard
               actions={
                 <DeleteIconButton onClick={() => console.log('delete')} />
               }
               component={NextLink}
-              componentProps={{ href: `/entity/detail/${index}` }}
-              title="Entity 1"
+              componentProps={{ href: `/entity/detail/${entity.id}` }}
+              title={entity.name}
             >
-              Status A
+              {entity.status}
             </ListCard>
           </ListItem>
         ))}
       </List>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={4}>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                error={!!errors.name}
-                helperText={errors.name?.message}
-                variant="standard"
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="status"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                select
-                error={!!errors.status}
-                helperText={errors.status?.message}
-                variant="standard"
-              >
-                {statusVariants.map((status) => (
-                  <MenuItem key={status} value={status}>
-                    {status}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-          />
+      {!hasEntities && !loading && (
+        <Stack justifyContent="center" sx={{ height: 'calc(100vh - 19rem)' }}>
+          <Alert icon={false} severity="info">
+            Start by creating new Entity 🚀
+          </Alert>
         </Stack>
-
-        <input type="submit" />
-      </form>
+      )}
     </>
   );
 }

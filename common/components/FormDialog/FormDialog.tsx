@@ -6,24 +6,22 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import type { DialogProps } from '@toolpad/core';
 
-interface FormDialogProps
-  extends PropsWithChildren,
-    Omit<DialogProps, 'payload'> {
+interface FormDialogProps extends PropsWithChildren, DialogProps {
+  formId: string;
   title: ReactNode;
-  payload: { onConfirm: () => void };
   confirmButtonLabel?: string;
+  isLoading?: boolean;
 }
 
 export function FormDialog({
   children,
   confirmButtonLabel = 'Submit',
+  formId,
+  isLoading = false,
   onClose,
-  payload,
   title,
   ...rest
 }: FormDialogProps) {
-  const { onConfirm } = payload;
-
   const handleClose = () => {
     onClose();
   };
@@ -34,7 +32,9 @@ export function FormDialog({
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={onConfirm}>{confirmButtonLabel}</Button>
+        <Button form={formId} loading={isLoading} type="submit">
+          {confirmButtonLabel}
+        </Button>
       </DialogActions>
     </Dialog>
   );

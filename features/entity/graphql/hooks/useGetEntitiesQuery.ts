@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { ENTITIES_QUERY, type Entity } from '@/features/entity';
 
 export function useGetEntitiesQuery() {
-  const query = useQuery<Entity[]>(ENTITIES_QUERY);
+  const { data, ...rest } = useQuery<{ entities: Entity[] }>(ENTITIES_QUERY);
 
-  return query;
+  return { data: data?.entities, ...rest };
 }

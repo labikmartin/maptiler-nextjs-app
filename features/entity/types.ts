@@ -9,3 +9,8 @@ export interface Entity {
   name: string;
   status: Status;
 }
+
+export interface CreateEntityForm {
+  name: string;
+  status: Status;
+}

@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const ENTITY_QUERY = gql`
   query EntityQuery($id: ID!) {
-    getEntity(id: $id) {
+    entity(id: $id) {
       id
       name
       status

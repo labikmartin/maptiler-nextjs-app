@@ -69,6 +69,7 @@ const eslintConfig = [
         { callbacksLast: true, shorthandFirst: true },
       ],
       'react/no-children-prop': 'off',
+      'react-hooks/exhaustive-deps': 'off',
     },
   }),
 ];

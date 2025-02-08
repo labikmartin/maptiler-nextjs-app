@@ -18,8 +18,8 @@ import { entitiesDb } from './db';
 
 const resolvers = {
   Query: {
-    getEntities: getEntities(entitiesDb),
-    getEntity: getEntity(entitiesDb),
+    entities: getEntities(entitiesDb),
+    entity: getEntity(entitiesDb),
   },
   Mutation: {
     createEntity: createEntity(entitiesDb),

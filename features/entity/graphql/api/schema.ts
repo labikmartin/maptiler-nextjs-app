@@ -2,11 +2,11 @@ import { gql } from '@apollo/client';
 
 export const EntitySchema = gql`
   type Query {
-    getEntities: [Entity!]!
+    entities: [Entity!]!
   }
 
   type Query {
-    getEntity(id: ID!): Entity
+    entity(id: ID!): Entity
   }
 
   type Mutation {

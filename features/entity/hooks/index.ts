@@ -1,0 +1,1 @@
+export { useDeleteEntityConfirmDialog } from './useDeleteEntityConfirmDialog';

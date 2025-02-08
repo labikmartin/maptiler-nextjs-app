@@ -20,3 +20,4 @@ export {
   ENTITIES_QUERY,
   ENTITY_QUERY,
 } from './graphql';
+export { useDeleteEntityConfirmDialog } from './hooks';

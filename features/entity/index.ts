@@ -1,6 +1,6 @@
 export { testUtil } from './utils';
 export { CreateEntityDialog } from './components';
-export type { Status, Entity } from './types';
+export type { Status, Entity, CreateEntityForm } from './types';
 export { statusVariants, statusSchema, StatusEnum } from './constants';
 export {
   EntitySchema,

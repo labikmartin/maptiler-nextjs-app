@@ -31,12 +31,6 @@ export default function EntitiesPage() {
   const [deleteEntity, { loading: isDeleteEntityLoading }] =
     useDeleteEntityMutation();
 
-  // const { data: dataEntity } = useGetEntityQuery();
-  // const [updateEntity, { data: updateEntityData }] = useUpdateEntityMutation();
-
-  // console.log('dataEntity: ', dataEntity);
-  // console.log('updateEntityData: ', updateEntityData);
-
   function handleDeleteEntityConfirm(entityId: string) {
     deleteEntity({ variables: { id: entityId } });
   }

@@ -6,11 +6,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import type { DialogProps } from '@toolpad/core';
 
-interface FormDialogProps extends PropsWithChildren, DialogProps {
+interface FormDialogProps
+  extends PropsWithChildren,
+    Omit<DialogProps, 'payload'> {
   formId: string;
   title: ReactNode;
   confirmButtonLabel?: string;
   isLoading?: boolean;
+  payload?: object;
 }
 
 export function FormDialog({

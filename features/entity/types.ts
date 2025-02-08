@@ -10,7 +10,7 @@ export interface Entity {
   status: Status;
 }
 
-export interface CreateEntityForm {
+export interface CreateEntityFormValues {
   name: string;
   status: Status;
 }

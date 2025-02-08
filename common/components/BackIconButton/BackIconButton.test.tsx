@@ -1,20 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { EditIconButton } from './EditIconButton';
+import { BackIconButton } from './BackIconButton';
 
-describe('EditIconButton', () => {
+describe('BackIconButton', () => {
   it('renders with accessibility label', () => {
-    render(<EditIconButton onClick={() => {}} />);
-    const button = screen.getByTitle(/edit/i);
-
+    render(<BackIconButton onClick={() => {}} />);
+    const button = screen.getByTitle(/return|back/i);
     expect(button).toBeInTheDocument();
   });
 
   it('renders with icon', () => {
-    const { container } = render(<EditIconButton onClick={() => {}} />);
+    const { container } = render(<BackIconButton onClick={() => {}} />);
     const icon = container.querySelector('svg');
-
     expect(icon).toBeInTheDocument();
   });
 });

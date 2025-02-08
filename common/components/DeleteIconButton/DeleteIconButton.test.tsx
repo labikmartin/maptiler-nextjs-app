@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { DeleteIconButton } from './DeleteIconButton';
 
 describe('DeleteIconButton', () => {
-  it('renders delete button with accessibility label', () => {
+  it('renders with accessibility label', () => {
     render(<DeleteIconButton onClick={() => {}} />);
     const button = screen.getByTitle(/delete/i);
     expect(button).toBeInTheDocument();

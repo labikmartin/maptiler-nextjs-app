@@ -3,11 +3,20 @@ import { IconButton } from '@mui/material';
 
 interface DeleteIconButtonProps {
   onClick: () => void;
+  loading?: boolean;
 }
 
-export function DeleteIconButton({ ...props }: DeleteIconButtonProps) {
+export function DeleteIconButton({
+  loading = false,
+  ...rest
+}: DeleteIconButtonProps) {
   return (
-    <IconButton sx={{ color: 'black' }} title="Delete" {...props}>
+    <IconButton
+      {...rest}
+      loading={loading}
+      sx={{ color: 'black' }}
+      title="Delete"
+    >
       <DeleteForeverIcon />
     </IconButton>
   );

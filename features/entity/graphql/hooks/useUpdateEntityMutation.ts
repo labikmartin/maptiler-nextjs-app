@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client';
 
 import {
-  ENTITIES_QUERY,
   type Entity,
+  ENTITY_QUERY,
   UPDATE_ENTITY_MUTATION,
 } from '@/features/entity';
 
@@ -13,12 +13,16 @@ interface UpdateEntityMutationVariables extends CreateEntityMutationVariables {
 }
 
 export function useUpdateEntityMutation() {
-  const mutationTuple = useMutation<Entity, UpdateEntityMutationVariables>(
-    UPDATE_ENTITY_MUTATION,
-    {
-      refetchQueries: [{ query: ENTITIES_QUERY }],
+  const mutationTuple = useMutation<
+    { updateEntity: Entity },
+    UpdateEntityMutationVariables
+  >(UPDATE_ENTITY_MUTATION, {
+    refetchQueries: (result) => {
+      const id = result?.data?.updateEntity?.id;
+
+      return [{ query: ENTITY_QUERY, variables: { id } }];
     },
-  );
+  });
 
   return mutationTuple;
 }

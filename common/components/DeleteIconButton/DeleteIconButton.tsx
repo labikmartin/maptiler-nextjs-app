@@ -14,7 +14,7 @@ export function DeleteIconButton({
     <IconButton
       {...rest}
       loading={loading}
-      sx={{ color: 'black' }}
+      sx={{ color: 'error.light' }}
       title="Delete"
     >
       <DeleteForeverIcon />

@@ -5,6 +5,7 @@ import {
 } from 'graphql-yoga';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { entitiesDb } from '@/app/api/graphql/db';
 import {
   createEntity,
   deleteEntity,
@@ -13,8 +14,6 @@ import {
   getEntity,
   updateEntity,
 } from '@/features/entity';
-
-import { entitiesDb } from './db';
 
 const resolvers = {
   Query: {
@@ -43,6 +42,6 @@ const yoga = createYoga<{
   graphqlEndpoint,
 });
 
-export async function POST(request: NextApiRequest, response: NextApiResponse) {
-  return yoga(request, response);
+export async function POST(request: Request) {
+  return yoga(request);
 }

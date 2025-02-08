@@ -1,10 +1,15 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import { Box, Chip, Divider, Skeleton, Stack } from '@mui/material';
 import { useDialogs } from '@toolpad/core';
 
-import { DeleteIconButton, EditIconButton } from '@/common/components';
+import {
+  BackIconButton,
+  DeleteIconButton,
+  EditIconButton,
+} from '@/common/components';
 import {
   EditEntityDialog,
   type Entity,
@@ -49,6 +54,12 @@ export default function EntityDetailPage() {
     );
   }
 
+  useEffect(() => {
+    if (!data && !isLoading) {
+      notFound();
+    }
+  }, [data, isLoading]);
+
   if (isLoading) {
     return (
       <Stack spacing={5}>
@@ -63,7 +74,10 @@ export default function EntityDetailPage() {
     <Stack justifyContent="flex-start" spacing={5}>
       <Stack spacing={3}>
         <Box alignItems="center" display="flex" justifyContent="space-between">
-          <h1>{name}</h1>
+          <Box alignItems="baseline" display="flex" gap={2}>
+            <BackIconButton onClick={() => router.back()} />
+            <h1>{name}</h1>
+          </Box>
           <Box display="flex">
             <DeleteIconButton
               loading={isDeleteEntityLoading}
